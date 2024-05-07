@@ -6,8 +6,17 @@
 	#packopt name "CatchCatchCatch!!"
 	#include "hspogg.as"
 	#include "module/bullet.as"
+	#include "module/save.as"
 	dmmini
 	BulletInit
+	exist "user/save.dat"
+	if strsize=-1 {
+		InitUserData
+		SaveUserDataName "USER"
+		SaveUserData
+	}else{
+		LoadUserData
+	}
 
 	title "CatchCatchCatch!!!"
 
@@ -172,6 +181,10 @@
 	//ゲームオーバー
 	if life=0 {
 		dmmplay 6
+		if HiscoreChange() {
+			SaveUserData		//HiscoreChange()=0なら実行。HiscoreChange()は０だとニューレコード
+			dialog "New Record!! Score:"+score,0,"congratulation"
+		}
 		dialog "GAMEOVER!!\nSCORE : "+score+"\n再挑戦する?" , 2 , "System"
 		if stat=6 {
 			break
