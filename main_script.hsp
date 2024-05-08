@@ -5,7 +5,7 @@
 
 	#packopt name "CatchCatchCatch!!"
 	#include "hspogg.as"
-	#include "module/bullet.as"
+	#include "module/Bullet.as"
 	#include "module/save.as"
 	dmmini
 	BulletInit
@@ -22,6 +22,7 @@
 
 	//タイトルメニューはここに書くぜ
 *title_loop
+	player_x=-100
 	#include "title.as"
 
 *game_start
@@ -383,7 +384,8 @@
 *StageBulletCalc
 	if cnt\20=0 and score<10000 {
 		repeat 6
-		BulletSet 320.0,100.0,sin(deg2rad(cnt_t+cnt*60))*5,cos(deg2rad(cnt_t+cnt*60))*5
+		BulletColor 0,0,255
+		BulletSet 320,100,sin(deg2rad(cnt_t+cnt*60))*5,cos(deg2rad(cnt_t+cnt*60))*5,15
 		loop
 		BulletReflect
 	}else{
@@ -392,8 +394,10 @@
 	if cnt\10=0 and score>=10000 {
 		cnt_t=cnt
 		repeat 12
-		BulletSet 320.0,100.0,sin(deg2rad(cnt_t+cnt*30))*5,cos(deg2rad(cnt_t+cnt*30))*5
-		BulletSet 320.0,100.0,-sin(deg2rad(cnt_t+cnt*30))*5,-cos(deg2rad(cnt_t+cnt*30))*5
+		BulletColor 255,0,255
+		BulletSet 320.0,100.0,sin(deg2rad(cnt_t+cnt*30))*5,cos(deg2rad(cnt_t+cnt*30))*5,15
+		BulletColor 255,0,255
+		BulletSet 320.0,100.0,-sin(deg2rad(cnt_t+cnt*30))*5,-cos(deg2rad(cnt_t+cnt*30))*5,15
 		loop
 		//BulletReflect
 	}

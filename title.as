@@ -7,7 +7,8 @@
 	b_x=rnd(640)
 	b_y=rnd(480)
 		repeat 6
-		BulletSet b_x,b_y,sin(deg2rad(cnt_t+cnt*60))*5,cos(deg2rad(cnt_t+cnt*60))*5
+		BulletColor 0,0,255
+		BulletSet b_x,b_y,sin(deg2rad(cnt_t+cnt*60))*5,cos(deg2rad(cnt_t+cnt*60))*5,15
 		loop
 		BulletReflect
 	}

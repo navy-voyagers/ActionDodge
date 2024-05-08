@@ -1,5 +1,5 @@
-#module Bullet
-#deffunc BulletInit
+#module Bullet2
+#deffunc Bullet2Init
 	BULLET_TOTAL=1024
 
 	ddim BulletX,BULLET_TOTAL
@@ -11,11 +11,9 @@
 	dim BulletColorB,BULLET_TOTAL
 	dim BulletExist,BULLET_TOTAL
 	dim BulletSize,BULLET_TOTAL
-	dmmload "res/se/shot.wav",10,0
-	dmmvol 10,-2000
 	return
 
-#deffunc BulletReset
+#deffunc Bullet2Reset
 	repeat BULLET_TOTAL
 	BulletX(cnt)=0.0
 	BulletY(cnt)=0.0
@@ -29,25 +27,25 @@
 	loop
 	return
 
-#deffunc BulletColor int BulletColorPrm1 , int BulletColorPrm2 , int BulletColorPrm3
+#deffunc Bullet2Color int Bullet2ColorPrm1 , int Bullet2ColorPrm2 , int Bullet2ColorPrm3
 	repeat BULLET_TOTAL
 	if BulletExist(cnt)=0 {
-		BulletColorR(cnt)=BulletColorPrm1
-		BulletColorG(cnt)=BulletColorPrm2
-		BulletColorB(cnt)=BulletColorPrm3
+		BulletColorR(cnt)=Bullet2ColorPrm1
+		BulletColorG(cnt)=Bullet2ColorPrm2
+		BulletColorB(cnt)=Bullet2ColorPrm3
 	}
 	loop
 	return
 
-#deffunc BulletSet double BulletSetPrm1 , double BulletSetPrm2 , double BulletSetPrm3 , double BulletSetPrm4 , int BulletSetPrm5
+#deffunc Bullet2Set double BulletSet2Prm1 , double BulletSet2Prm2 , double BulletSet2Prm3 , double BulletSet2Prm4 , int BulletSet2Prm5
 	BulletLog=0
 	repeat BULLET_TOTAL
 	if BulletExist(cnt)=0 {
-		BulletX(cnt)=BulletSetPrm1
-		BulletY(cnt)=BulletSetPrm2
-		BulletXChange(cnt)=BulletSetPrm3
-		BulletYChange(cnt)=BulletSetPrm4
-		BulletSize(cnt)=BulletSetPrm5
+		BulletX(cnt)=BulletSet2Prm1
+		BulletY(cnt)=BulletSet2Prm2
+		BulletXChange(cnt)=BulletSet2Prm3
+		BulletYChange(cnt)=BulletSet2Prm4
+		BulletSize(cnt)=BulletSet2Prm5
 		BulletExist(cnt)=1
 		BulletLog=1
 		dmmplay 10
@@ -59,29 +57,29 @@
 	}
 	return
 
-#deffunc BulletDel int BulletDelPrm1
-	BulletExist(BulletDelPrm1)=0
+#deffunc Bullet2Del int Bullet2DelPrm1
+	BulletExist(Bullet2DelPrm1)=0
 	return
 
-#deffunc BulletSpeedChange double BulletSpeedChangePrm1
+#deffunc Bullet2SpeedChange double Bullet2SpeedChangePrm1
 	repeat BULLET_TOTAL
 	if BulletExist(cnt)=1 {
-		BulletXChange(cnt)=BulletXChange(cnt)*BulletSpeedChangePrm1
-		BulletYChange(cnt)=BulletYChange(cnt)*BulletSpeedChangePrm1
+		BulletXChange(cnt)=BulletXChange(cnt)*Bullet2SpeedChangePrm1
+		BulletYChange(cnt)=BulletYChange(cnt)*Bullet2SpeedChangePrm1
 	}
 	loop
 	return
 
-#deffunc BulletMoveChange double BulletMoveChangePrm1 , double BulletMoveChangePrm2
+#deffunc Bullet2MoveChange double Bullet2MoveChangePrm1 , double Bullet2MoveChangePrm2
 	repeat BULLET_TOTAL
 	if BulletExist(cnt)=1 {
-		BulletXChange(cnt)=BulletMoveChangePrm1
-		BulletYChange(cnt)=BulletMoveChangePrm2
+		BulletXChange(cnt)=Bullet2MoveChangePrm1
+		BulletYChange(cnt)=Bullet2MoveChangePrm2
 	}
 	loop
 	return
 
-#deffunc BulletMove
+#deffunc Bullet2Move
 	player_x=PlayerInfo(0)
 	player_y=PlayerInfo(1)
 
@@ -103,9 +101,10 @@
 		BulletExist(cnt)=0
 	}
 	loop
+
 	return
 
-#deffunc BulletReflect
+#deffunc Bullet2Reflect
 	repeat BULLET_TOTAL
 	if BulletExist(cnt)=1 {
 		if BulletX(cnt)>640 or BulletX(cnt)<0 {
@@ -118,7 +117,7 @@
 	loop
 	return
 
-#deffunc BulletDraw
+#deffunc Bullet2Draw
 	repeat BULLET_TOTAL
 	if BulletExist(cnt)=1 {
 		if BulletY(cnt)>-30 and BulletY(cnt)<500 {
@@ -133,7 +132,7 @@
 	loop
 	return
 
-#defcfunc BulletMiss		//ミスを知らせる関数
+#defcfunc Bullet2Miss		//ミスを知らせる関数
 	if Miss_sw=1 {
 		Miss_sw=0
 		return 1
@@ -141,25 +140,25 @@
 		return 0
 	}
 
-#defcfunc BulletInfo int BulletInfoPrm1 , int BulletInfoPrm2
-	if BulletInfoPrm2>BULLET_TOTAL {
+#defcfunc Bullet2Info int Bullet2InfoPrm1 , int Bullet2InfoPrm2
+	if Bullet2InfoPrm2>BULLET_TOTAL {
 		return "error"
 	}
-	switch BulletInfoPrm1
+	switch Bullet2InfoPrm1
 	case 0		//BulletX
-	return BulletX(BulletInfoPrm2)
+	return BulletX(Bullet2InfoPrm2)
 
 	case 1		//BulletY
-	return BulletY(BulletInfoPrm2)
+	return BulletY(Bullet2InfoPrm2)
 
 	case 2		//BulletXChange
-	return BulletXChange(BulletInfoPrm2)
+	return BulletXChange(Bullet2InfoPrm2)
 
 	case 3		//BulletYChange
-	return BulletYChange(BulletInfoPrm2)
+	return BulletYChange(Bullet2InfoPrm2)
 
 	case 4		//BulletExist
-	return BulletExist(BulletInfoPrm2)
+	return BulletExist(Bullet2InfoPrm2)
 
 	case 5		//BULLET_TOTAL
 	return BULLET_TOTAL
@@ -168,10 +167,9 @@
 
 	return "error"
 
-//BulletSetをベクトルで指定するプラグイン
-#deffunc BulletSetVector double BulletSetVectorPrm1 , double BulletSetVectorPrm2 , double BulletSetVectorPrm3 , double BulletSetVectorPrm4 , double BulletSetVectorPrm5
+#deffunc Bullet2SetVector double Bullet2SetVectorPrm1 , double Bullet2SetVectorPrm2 , double Bullet2SetVectorPrm3 , double Bullet2SetVectorPrm4 , double Bullet2SetVectorPrm5
 	//BulletSetVector X,Y,スピード,角度,弾の大きさ
-	BulletSet BulletSetVectorPrm1,BulletSetVectorPrm2,cos(deg2rad(BulletSetVectorPrm4))*BulletSetVectorPrm3,sin(deg2rad(BulletSetVectorPrm4))*BulletSetVectorPrm3,BulletSetVectorPrm5
+	Bullet2Set Bullet2SetVectorPrm1,Bullet2SetVectorPrm2,cos(deg2rad(Bullet2SetVectorPrm4))*Bullet2SetVectorPrm3,sin(deg2rad(Bullet2SetVectorPrm4))*Bullet2SetVectorPrm3,Bullet2SetVectorPrm5
 	return
 
 #global
